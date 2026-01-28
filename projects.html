@@ -1,0 +1,207 @@
+---
+title: Projetos
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos | Guilherme Cavalheri</title>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+</head>
+
+<body>
+
+    {% include header.html %}
+
+    <div class="page-content bg-light">
+        <div class="container">
+            <h1 class="section-title">Portfólio de Projetos</h1>
+
+            {% if site.data.projects.size > 0 %}
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Pesquisar projetos..." onkeyup="filterProjects()">
+                </div>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterByCategory('todos')">Todos</button>
+                {% assign categories = site.data.projects | map: "categoria" | uniq | sort %}
+                {% for cat in categories %}
+                <button class="filter-btn" onclick="filterByCategory('{{ cat }}')">{{ cat }}</button>
+                {% endfor %}
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                {% for project in site.data.projects %}
+                <a href="{{ project.github }}" target="_blank" class="project-card-link"
+                    data-category="{{ project.categoria }}" data-title="{{ project.titulo | downcase }}"
+                    data-desc="{{ project.descricao | downcase }}">
+                    <div class="project-card">
+                        <div class="card-content">
+                            <span class="card-tag">{{ project.categoria }}</span>
+                            <h3>{{ project.titulo }}</h3>
+                            <p>{{ project.descricao }}</p>
+                            {% if project.tech %}
+                            <div class="tech-stack-mini">
+                                {% for tech in project.tech %}
+                                <span>{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="project-link-btn">
+                                <i class="fab fa-github"></i> Ver no GitHub
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>Nenhum projeto encontrado.</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+
+            {% else %}
+            <!-- Mensagem quando não há projetos -->
+            <div class="projects-grid" style="justify-content: center;">
+                <div class="project-card">
+                    <div class="card-content" style="text-align: center;">
+                        <span class="card-tag">🚧 Em Construção</span>
+                        <h3>Projetos em Breve</h3>
+                        <p>Esta seção está sendo desenvolvida. Em breve você poderá explorar meus projetos de Data
+                            Science, Machine Learning e Analytics.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include footer.html %}
+
+    <script>
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let activeCategory = 'todos';
+        let allProjects = [];
+        let filteredProjects = [];
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            allProjects = Array.from(document.querySelectorAll('.project-card-link'));
+            filteredProjects = [...allProjects];
+            showPage(1);
+        });
+
+        function filterByCategory(category) {
+            activeCategory = category;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.trim() === category || (category === 'todos' && btn.textContent.trim() === 'Todos')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            filterProjects();
+        }
+
+        function filterProjects() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredProjects = allProjects.filter(project => {
+                const projectCategory = project.getAttribute('data-category');
+                const projectTitle = project.getAttribute('data-title');
+                const projectDesc = project.getAttribute('data-desc');
+
+                const matchesCategory = activeCategory === 'todos' || projectCategory === activeCategory;
+                const matchesSearch = projectTitle.includes(searchTerm) || projectDesc.includes(searchTerm);
+
+                return matchesCategory && matchesSearch;
+            });
+
+            currentPage = 1;
+            showPage(1);
+        }
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            // Hide all projects
+            allProjects.forEach(project => {
+                project.style.display = 'none';
+            });
+
+            // Show only filtered projects for current page
+            filteredProjects.forEach((project, index) => {
+                if (index >= start && index < end) {
+                    project.style.display = 'block';
+                }
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (filteredProjects.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Previous button
+            if (currentPage > 1) {
+                html += `<button class="page-btn" onclick="showPage(${currentPage - 1})"><i class="fas fa-chevron-left"></i></button>`;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="page-btn active">${i}</button>`;
+                } else {
+                    html += `<button class="page-btn" onclick="showPage(${i})">${i}</button>`;
+                }
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                html += `<button class="page-btn" onclick="showPage(${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>`;
+            }
+
+            pagination.innerHTML = html;
+        }
+    </script>
+
+</body>
+
+</html>

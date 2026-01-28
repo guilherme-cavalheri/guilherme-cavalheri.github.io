@@ -1,0 +1,22 @@
+# Configurações do Hero Section
+hero:
+  greeting: "Olá, sou"
+  name: "Guilherme Cavalheri"
+  title: "Especialista de Dados"
+  description: "Atuo na maior operadora ferroviária da América Latina, usando dados para transformar desafios operacionais em ganhos reais de eficiência e capacidade. Possuo experiência em Analytics, Machine Learning e Engenharia de Dados."
+  photo: "/assets/images/profile.jpg"
+
+# Links Sociais
+social:
+  linkedin: "https://www.linkedin.com/in/guilherme-cavalheri/"
+  github: "https://github.com/guilhermecavalheri"
+  email: "guilhermeccavalheri@outlook.com"
+
+# Skills/Tags
+skills:
+  - "Python & SQL"
+  - "Machine Learning"
+  - "Engenharia de Dados (ETL/ELT)"
+  - "AWS Cloud"
+  - "Power BI & Streamlit"
+  - "Tech Lead & PO"

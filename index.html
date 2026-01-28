@@ -1,0 +1,147 @@
+---
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Cavalheri</title>
+    <meta name="description" content="{{ site.data.site.hero.description }}">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+</head>
+
+<body>
+
+    {% include header.html %}
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text-content">
+                <p class="greeting">{{ site.data.site.hero.greeting }}</p>
+                <h1>{{ site.data.site.hero.name }}</h1>
+                <h2>{{ site.data.site.hero.title }}</h2>
+                <p class="hero-text">
+                    {{ site.data.site.hero.description }}
+                </p>
+                <div class="hero-social-buttons">
+                    <a href="{{ site.data.site.social.linkedin }}" target="_blank" class="social-btn-small">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="{{ site.data.site.social.github }}" target="_blank" class="social-btn-small">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="projects.html" class="social-btn-small">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Projetos</span>
+                    </a>
+                </div>
+            </div>
+            <div class="profile-photo-container">
+                <img src="{{ site.data.site.hero.photo }}" alt="{{ site.data.site.hero.name }}" class="profile-photo"
+                    onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    {% capture sobre_content %}{% include sobre_mim.md %}{% endcapture %}
+                    {{ sobre_content | markdownify }}
+
+                    <div class="skills-grid">
+                        {% for skill in site.data.site.skills %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="formacao" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Formação</h2>
+
+            <div class="timeline">
+                {% for item in site.data.timeline.formacao %}
+                <div class="timeline-item education">
+                    <div class="timeline-date">{{ item.periodo }}</div>
+                    <div class="timeline-content">
+                        <h3>{{ item.grau }}</h3>
+                        <span class="company">{{ item.instituicao }}</span>
+                        {% if item.tcc %}
+                        <p style="margin-top: 12px;">
+                            <strong>TCC:</strong> "{{ item.tcc }}"
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="curriculo" class="section">
+        <div class="container">
+            <h2 class="section-title">Trajetória Profissional</h2>
+
+            <div class="timeline">
+                {% for item in site.data.timeline.experiencias %}
+                <div class="timeline-item">
+                    <div class="timeline-date">{{ item.periodo }}</div>
+                    <div class="timeline-content">
+                        <h3>{{ item.cargo }}</h3>
+                        <span class="company">{{ item.empresa }}</span>
+                        <p>{{ item.resumo }}</p>
+                        <p>
+                            {% for bullet in item.bullets %}
+                            • {{ bullet }}<br>
+                            {% endfor %}
+                        </p>
+                        {% if item.resultados %}
+                        <p style="margin-top: 12px;">
+                            <strong>Resultados:</strong><br>
+                            {% if item.resultados.first %}
+                            {% for resultado in item.resultados %}
+                            • {{ resultado }}<br>
+                            {% endfor %}
+                            {% else %}
+                            • {{ item.resultados }}
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    {% include footer.html %}
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

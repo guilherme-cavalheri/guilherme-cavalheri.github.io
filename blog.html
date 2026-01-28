@@ -1,0 +1,178 @@
+---
+title: Blog
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Guilherme Cavalheri</title>
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+</head>
+
+<body>
+
+    {% include header.html %}
+
+    <div class="page-content bg-light">
+        <div class="container">
+            <h1 class="section-title">Blog & Publicações</h1>
+
+            {% if site.posts.size > 0 %}
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Pesquisar artigos..." onkeyup="filterPosts()">
+                </div>
+            </div>
+
+            <div class="blog-grid" id="blogGrid">
+                {% for post in site.posts %}
+                <a href="{{ post.url }}" class="blog-card-link" data-title="{{ post.title | downcase }}"
+                    data-excerpt="{{ post.excerpt | strip_html | downcase }}">
+                    <div class="blog-card">
+                        <div class="blog-card-content">
+                            <div class="blog-card-meta">
+                                <span><i class="fas fa-calendar-alt"></i> {{ post.date | date: "%d/%m/%Y" }}</span>
+                                {% if post.categories %}
+                                <span> | {{ post.categories | first }}</span>
+                                {% endif %}
+                            </div>
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
+                            <div class="blog-link-btn">
+                                Ler Mais <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>Nenhum artigo encontrado.</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+
+            {% else %}
+            <!-- Mensagem quando não há posts -->
+            <div class="blog-grid" style="justify-content: center;">
+                <div class="blog-card">
+                    <div class="blog-card-content" style="text-align: center;">
+                        <div class="blog-card-meta">
+                            <span>🚧 Em Construção</span>
+                        </div>
+                        <h3>Artigos em Breve</h3>
+                        <p>Esta seção está sendo desenvolvida. Em breve você poderá ler meus artigos sobre Data Science,
+                            Machine Learning e carreira em dados.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include footer.html %}
+
+    <script>
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let allPosts = [];
+        let filteredPosts = [];
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            allPosts = Array.from(document.querySelectorAll('.blog-card-link'));
+            filteredPosts = [...allPosts];
+            showPage(1);
+        });
+
+        function filterPosts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredPosts = allPosts.filter(post => {
+                const postTitle = post.getAttribute('data-title');
+                const postExcerpt = post.getAttribute('data-excerpt');
+
+                return postTitle.includes(searchTerm) || postExcerpt.includes(searchTerm);
+            });
+
+            currentPage = 1;
+            showPage(1);
+        }
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            // Hide all posts
+            allPosts.forEach(post => {
+                post.style.display = 'none';
+            });
+
+            // Show only filtered posts for current page
+            filteredPosts.forEach((post, index) => {
+                if (index >= start && index < end) {
+                    post.style.display = 'block';
+                }
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (filteredPosts.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Previous button
+            if (currentPage > 1) {
+                html += `<button class="page-btn" onclick="showPage(${currentPage - 1})"><i class="fas fa-chevron-left"></i></button>`;
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="page-btn active">${i}</button>`;
+                } else {
+                    html += `<button class="page-btn" onclick="showPage(${i})">${i}</button>`;
+                }
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                html += `<button class="page-btn" onclick="showPage(${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>`;
+            }
+
+            pagination.innerHTML = html;
+        }
+    </script>
+
+</body>
+
+</html>

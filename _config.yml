@@ -1,0 +1,47 @@
+# Site settings
+title: Guilherme Cavalheri | Especialista de Dados
+email: guilhermeccavalheri@outlook.com
+description: >-
+  Especialista em Data Science, Analytics e Machine Learning. Transformando dados 
+  complexos em eficiência operacional na maior operadora ferroviária do Brasil.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://guilhermecavalheri.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Social
+linkedin_username: guilherme-cavalheri
+github_username: guilhermecavalheri
+
+# Build settings
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-feed
+
+# Collections - Projetos
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Defaults para posts e projetos
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

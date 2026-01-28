@@ -1,0 +1,71 @@
+# Formação Acadêmica
+formacao:
+  - grau: "Engenharia Elétrica"
+    instituicao: "Universidade Estadual de Londrina (UEL)"
+    periodo: "2017 - 2022"
+    tcc: "COVACIC, MARCIO R.;Ruberlei Gaino; BARBOSA, L. R.. Estudo de Topologias de Sistemas de Controle Aplicadas ao Modelo de Eletroestimulação de Membros Inferiores de Pacientes Paraplégicos. 2022."
+
+# Trajetória Profissional
+# Para editar, basta modificar os campos abaixo
+# Os campos suportados são: cargo, empresa, periodo, resumo, bullets, resultados
+
+experiencias:
+  - cargo: "Especialista de Inteligência de Dados"
+    empresa: "Rumo Logística | Araraquara-SP"
+    periodo: "Jul 2024 - Atual"
+    resumo: ""
+    bullets:
+      - "Atuação no desenvolvimento de soluções analíticas e modelos de machine learning ao longo de todo o ciclo de vida, desde a modelagem do problema e feature engineering até a implementação, validação, otimização, monitoramento e backtesting."
+      - "Desenvolvimento e operacionalização de simuladores analíticos voltados a cenários operacionais complexos."
+      - "Processamento e análise de grandes volumes de dados operacionais, incluindo logs de locomotivas e dados de geometria de via (ATGMS / Ensco)."
+      - "Liderança no desenvolvimento de data products, desde a concepção e discovery até a operacionalização, garantindo alinhamento entre áreas técnicas e de negócio."
+      - "Automação de pipelines de dados (ETL/ELT) em ambiente AWS, com foco em confiabilidade, escalabilidade e governança."
+      - "System design de soluções analíticas e produtos de dados na AWS, considerando arquitetura, performance e custos."
+      - "Atuação como Product Owner em iniciativas de dados, conduzindo discovery, mapeamento de processos, priorização de demandas e data storytelling."
+      - "Atuação como Tech Lead, orientando decisões técnicas, arquitetura e boas práticas de engenharia de dados."
+      - "Gestão da mudança e suporte à adoção de soluções analíticas em ambientes operacionais."
+      - "Comunicação executiva e apresentação de projetos estratégicos para diferentes níveis de stakeholders."
+    
+    resultados: "Redução de falhas por Flambagem após implementação do produto de dados (Priorizador de Manutenção)."
+
+  - cargo: "Analista de Dados Pl"
+    empresa: "Rumo Logística | Curitiba-PR"
+    periodo: "Ago 2022 - Jul 2024"
+    resumo: ""
+    bullets:
+      - "Participação ativa na modelagem de problemas complexos, identificando padrões, tendências e oportunidades nos dados para suporte à tomada de decisão estratégica."
+      - "Desenvolvimento de modelos de machine learning, incluindo análise exploratória de dados (EDA), validação e otimização de hiperparâmetros."
+      - "Uso avançado de Python e SQL para extração, tratamento, integração e análise de grandes volumes de dados."
+      - "Definição de requisitos de sistema e implementação de arquitetura de backend, incluindo APIs para sistemas de gestão de ativos."
+      - "Construção e orquestração de pipelines de dados (ETL/ELT), incluindo ingestão de listas e arquivos do Microsoft SharePoint em ambiente AWS."
+      - "Participação no desenho de arquiteturas de dados voltadas às áreas de negócio."
+      - "Implantação de boas práticas de padronização, versionamento e qualidade de código utilizando Git/GitHub."
+      - "Gerenciamento de projetos com metodologias SCRUM e CRISP-DM."
+      - "Desenvolvimento de dashboards interativos em Power BI e Streamlit para acompanhamento operacional e executivo."
+      - "Contribuição em projetos de inovação e P&D envolvendo produtos de hardware e sistemas embarcados."
+    
+    resultados: 
+      - "Automação de relatórios para as áreas de material rodante (vagões e locomotivas)."
+      - "Implementação de rastreabilidade de rodeiros de vagões."
+      - "Integração e automação de fluxos de dados com sistemas SAP."
+      - "Estruturação de workflows e processos de dados corporativos."
+      - "Geração de saving de horas-homem nas áreas de Material Rodante, PCM, PCP e Atendimento VIA/TO por meio da automação de ETLs."
+      - "Estruturação e consolidação de processos de engenharia de dados no time."
+
+  - cargo: "Estágio Hardware e Sistemas Embarcados"
+    empresa: "Trimble Transportation (Platform Science) | Londrina-PR"
+    periodo: "Jan 2021 - Jul 2022"
+    resumo: ""
+    bullets:
+      - "Liderança de projeto de estágio voltado à modificação do sistema de produção de um equipamento, conduzindo a análise do problema, estruturação do projeto com base em insights da área de negócio, validação de hardware via JIGA e desenvolvimento de firmware."
+      - "Atuação em projetos internos utilizando as linguagens C e Python."
+      - "Trabalho com sistemas de telemetria automotiva, incluindo barramento CAN, protocolo J1939, veículos elétricos e análise de dados de clientes e processos produtivos."
+      - "Utilização de protocolos de comunicação SPI, I2C, RS232 e RS485 em projetos internos."
+      - "Atuação em Quality Assurance (QA) de hardware, conduzindo testes de integridade de circuitos, funcionalidade de dispositivos e identificação de falhas de fabricação, utilizando ferramentas de teste de desempenho, durabilidade e compatibilidade."
+      - "Participação ativa em projetos e montagem de hardware, incluindo construção de JIGAs, montagem de PCBs com componentes SMD, liberações de firmware e aplicação de metodologia ágil Scrum."
+    
+    resultados: 
+      - "Desenvolvimento de novas funcionalidades e correção de problemas em hardware de monitoramento."
+      - "Documentação de processos técnicos e operacionais."
+      - "Execução de testes em novos hardwares e novas versões de firmware."
+      - "Construção e validação de dispositivos JIGA para testes e produção."

@@ -1,0 +1,17 @@
+# Projetos do Portfólio
+# Para adicionar um novo projeto, basta adicionar um novo item abaixo
+# Campos disponíveis:
+#   - titulo: Nome do projeto (obrigatório)
+#   - categoria: Data Analytics, Machine Learning, Engenharia de Dados, etc.
+#   - descricao: Descrição curta do projeto
+#   - github: Link do repositório no GitHub (obrigatório)
+#   - tech: Lista de tecnologias usadas (opcional)
+
+- titulo: "Exemplo - Modelo de Machine Learning"
+  categoria: "Machine Learning"
+  descricao: "Modelo preditivo para classificação de dados."
+  github: "https://github.com/guilhermecavalheri"
+  tech:
+    - Python
+    - Scikit-learn
+    - Docker
